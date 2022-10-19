@@ -5,7 +5,8 @@ on:
       - 'v*'
 
 permissions:
-  contents: write
+  contents: read
+  packages: write
 
 jobs:
   test:
@@ -20,6 +21,12 @@ jobs:
         fetch-depth: 0
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
+    - name: Docker Login
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     - name: Setup Go
       uses: actions/setup-go@v2
       with:

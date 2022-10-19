@@ -35,9 +35,6 @@ jobs:
           args: release --snapshot --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Test docker image
-        run: |
-          docker images
       - name: Test binary
         run: |
           dist/vattenfall_linux_amd64_v1/vattenfall -region SN3
