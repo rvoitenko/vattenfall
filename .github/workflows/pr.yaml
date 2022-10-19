@@ -22,7 +22,12 @@ jobs:
         uses: goreleaser/goreleaser-action@v3
         with:
           version: latest
-          args: release --snapshot --rm-dist
+          args: build --snapshot --rm-dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Test
         run: |
           docker images
+      - name: Test
+        run: |
+          dist/vattenfall_linux_amd64_v1/vattenfall -region SN3
