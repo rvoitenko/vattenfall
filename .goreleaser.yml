@@ -32,3 +32,66 @@ archives:
     format_overrides:
       - goos: windows
         format: zip
+dockers:
+  - use: buildx
+    goos: linux
+    goarch: amd64
+    build_flag_templates:
+      - "--platform=linux/amd64"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+  - use: buildx
+    goos: linux
+    goarch: arm64
+    image_templates:
+      - "rvoitenko/{{ .ProjectName }}:{{ .Version }}-arm64v8"
+      - "rvoitenko/{{ .ProjectName }}:latest-arm64v8"
+    build_flag_templates:
+      - "--platform=linux/arm64/v8"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+  - use: buildx
+    goos: linux
+    goarch: arm
+    goarm: 6
+    image_templates:
+      - "rvoitenko/{{ .ProjectName }}:{{ .Version }}-armv6"
+      - "rvoitenko/{{ .ProjectName }}:latest-armv6"
+    build_flag_templates:
+      - "--platform=linux/arm/v6"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+  - use: buildx
+    goos: linux
+    goarch: arm
+    goarm: 7
+    image_templates:
+      - "rvoitenko/{{ .ProjectName }}:{{ .Version }}-armv7"
+      - "rvoitenko/{{ .ProjectName }}:latest-armv7"
+    build_flag_templates:
+      - "--platform=linux/arm/v7"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+docker_manifests:
+  - name_template: 0hlov3s/{{ .ProjectName }}:{{ .Version }}
+    image_templates:
+      - rvoitenko/{{ .ProjectName }}:{{ .Version }}-amd64
+      - rvoitenko/{{ .ProjectName }}:{{ .Version }}-arm64v8
+      - rvoitenko/{{ .ProjectName }}:{{ .Version }}-armv6
+      - rvoitenko/{{ .ProjectName }}:{{ .Version }}-armv7
+  - name_template: rvoitenko/{{ .ProjectName }}:latest
+    image_templates:
+      - rvoitenko/{{ .ProjectName }}:latest-amd64
+      - rvoitenko/{{ .ProjectName }}:latest-arm64v8
+      - rvoitenko/{{ .ProjectName }}:latest-armv6
+      - rvoitenko/{{ .ProjectName }}:latest-armv7
+checksum:
+  name_template: 'checksums.txt'
