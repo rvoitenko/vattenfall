@@ -25,4 +25,4 @@ jobs:
           args: build --snapshot --rm-dist
       - name: test
         run: |
-          ls -la
+          ls -la dist/vattenfall_darwin_arm64/vattenfall
