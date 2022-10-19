@@ -18,6 +18,7 @@ builds:
       - arm64
       - arm
     goarm:
+      - 6
       - 7
 archives:
   - id: vattenfall
