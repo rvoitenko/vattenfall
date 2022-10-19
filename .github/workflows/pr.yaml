@@ -18,6 +18,12 @@ jobs:
           fetch-depth: 0
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
+      - name: Docker Login
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup Go
         uses: actions/setup-go@v3
         with:
@@ -32,7 +38,6 @@ jobs:
       - name: Test docker image
         run: |
           docker images
-          docker run  rvoitenko/vattenfall:latest-amd64 -region SN3
       - name: Test binary
         run: |
           dist/vattenfall_linux_amd64_v1/vattenfall -region SN3
