@@ -10,7 +10,6 @@ builds:
       - -w
       - -X main.version={{.Version}} -X main.commit={{.FullCommit}} -X main.date={{.CommitDate}} -X main.repository={{.GitURL}}
     goos:
-      - windows
       - darwin
       - linux
     goarch:
