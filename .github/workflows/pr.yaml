@@ -22,7 +22,7 @@ jobs:
         uses: goreleaser/goreleaser-action@v3
         with:
           version: latest
-          args: build --snapshot --rm-dist
+          args: release --snapshot --rm-dist
       - name: Test
         run: |
-          dist/vattenfall_linux_amd64_v1/vattenfall -region SN3
+          docker images

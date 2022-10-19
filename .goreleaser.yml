@@ -37,6 +37,9 @@ dockers:
   - use: buildx
     goos: linux
     goarch: amd64
+    image_templates:
+      - "rvoitenko/{{ .ProjectName }}:{{ .Version }}-amd64"
+      - "rvoitenko/{{ .ProjectName }}:latest-amd64"
     build_flag_templates:
       - "--platform=linux/amd64"
       - "--label=org.opencontainers.image.created={{.Date}}"
@@ -82,7 +85,7 @@ dockers:
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
       - "--label=org.opencontainers.image.version={{.Version}}"
 docker_manifests:
-  - name_template: 0hlov3s/{{ .ProjectName }}:{{ .Version }}
+  - name_template: rvoitenko/{{ .ProjectName }}:{{ .Version }}
     image_templates:
       - rvoitenko/{{ .ProjectName }}:{{ .Version }}-amd64
       - rvoitenko/{{ .ProjectName }}:{{ .Version }}-arm64v8
