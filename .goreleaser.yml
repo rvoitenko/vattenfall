@@ -39,7 +39,7 @@ dockers:
     goarch: amd64
     image_templates:
       - "rvoitenko/{{ .ProjectName }}:{{ .Version }}-amd64"
-      - "io/rvoitenko/{{ .ProjectName }}:latest-amd64"
+      - "rvoitenko/{{ .ProjectName }}:latest-amd64"
     build_flag_templates:
       - --platform=linux/amd64
       - --label=org.opencontainers.image.created={{.Date}}
