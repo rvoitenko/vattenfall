@@ -5,6 +5,8 @@ builds:
     mod_timestamp: '{{ .CommitTimestamp }}'
     flags:
       - -trimpath
+    env:
+      - CGO_ENABLED=0
     ldflags:
       - -s
       - -w
