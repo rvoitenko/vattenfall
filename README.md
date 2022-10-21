@@ -64,3 +64,48 @@ Or to just get the values on the console:
 ```sh
 $ docker run rvoitenko/vattenfall -region SN1 -region SN2 -region SN3 -region SN4
 ```
+
+## Integration with Prometheus/Grafana
+
+Docker-compose snippet:
+```yaml
+version: '3.8'
+services:
+  vattenfall:
+    image: rvoitenko/vattenfall
+    ports:
+      - '127.0.0.1:9000:9000'
+    command: -output.http=:9000 -region=SN3 
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - '127.0.0.1:9090:9090'
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+  grafana:
+    image: grafana/grafana:9.1.6
+    links:
+      - vattenfall
+      - prometheus
+    ports:
+      - '127.0.0.1:3000:3000'
+```
+
+You can use the following Prometheus configuration to scrape the exporter(prometheus.yml):
+
+```yaml
+global:
+  scrape_interval: 30s
+  scrape_timeout: 10s
+
+scrape_configs:
+  - job_name: vattenfall
+    metrics_path: /prices
+    static_configs:
+      - targets:
+          - 'vattenfall:9000'
+```
