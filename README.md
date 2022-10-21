@@ -50,3 +50,17 @@ Or to just get the values on the console:
 ```sh
 $ vattenfall -region SN1 -region SN2 -region SN3 -region SN4
 ```
+
+## Usage with Docker
+
+Docker images for the available releases are available on Docker Hub - https://hub.docker.com/r/rvoitenko/vattenfall
+
+To run it as a Prometheus exporter that you can query over HTTP:
+```sh
+$ docker run -p 9000:9000 rvoitenko/vattenfall -output.http=":9000" -region SN1 -region SN2 -region SN3 -region SN4
+```
+
+Or to just get the values on the console:
+```sh
+$ docker run rvoitenko/vattenfall -region SN1 -region SN2 -region SN3 -region SN4
+```
